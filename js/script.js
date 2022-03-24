@@ -28,3 +28,33 @@ function playRound(playerSelection, computerSelection) {
     return 'Rock smashes scissors! You lose!'
   }
 }
+
+function game() {
+  let p_counter = 0
+  let c_counter = 0
+  for (let i=0; i < 5; i++) {
+    let p = prompt('1-2-3-Go').toLowerCase()
+    let c = computerPlay()
+    let winner = playRound(p, c)
+    if (winner.includes('You win')) {
+      p_counter++
+    } else if (winner.includes('You lose')) {
+      c_counter++
+    } else {
+      //draw
+      console.log(winner)
+      continue
+    }
+    console.log(winner)
+  }
+  if (p_counter > c_counter) {
+    console.log('You won the game!')
+  } else if (p_counter < c_counter) {
+    console.log('You lost! Better luck next time!')
+  } else {
+    //draw
+    console.log('It was a draw!')
+  }
+}
+
+//game()
