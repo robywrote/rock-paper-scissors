@@ -1,0 +1,9 @@
+body {
+    background-color: lightseagreen;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
