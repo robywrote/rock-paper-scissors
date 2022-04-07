@@ -66,7 +66,13 @@ function doSomething(e) {
   //console.log(e.path[0].firstChild.data)
 }
 
+function undoSomething(e) {
+  const button = e.srcElement
+  button.classList.remove('hover')
+}
+
 const buttons = document.querySelectorAll('button')
 console.log(buttons)
 buttons.forEach(button => button.addEventListener('mouseover', doSomething))
+buttons.forEach(button => button.addEventListener('mouseout', undoSomething))
 //game()
