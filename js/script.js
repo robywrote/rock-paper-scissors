@@ -57,4 +57,16 @@ function game() {
   }
 }
 
+
+function doSomething(e) {
+  //console.log(e)
+  const button = e.srcElement
+  button.classList.add('hover')
+  console.log(button)
+  //console.log(e.path[0].firstChild.data)
+}
+
+const buttons = document.querySelectorAll('button')
+console.log(buttons)
+buttons.forEach(button => button.addEventListener('mouseover', doSomething))
 //game()
