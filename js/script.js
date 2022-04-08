@@ -12,7 +12,7 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    return 'draw'
+    return `${playerSelection} all around! Draw!`
   } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
     return 'Rock smashes scissors! You win!'
   } else if (playerSelection === 'rock' && computerSelection === 'paper') {
@@ -29,50 +29,52 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  let p_counter = 0
-  let c_counter = 0
-  for (let i=0; i < 5; i++) {
-    let p = prompt('1-2-3-Go').toLowerCase()
-    let c = computerPlay()
-    let winner = playRound(p, c)
-    if (winner.includes('You win')) {
-      p_counter++
-    } else if (winner.includes('You lose')) {
-      c_counter++
-    } else {
-      //draw
-      console.log(winner)
-      continue
-    }
-    console.log(winner)
-  }
-  if (p_counter > c_counter) {
-    console.log('You won the game!')
-  } else if (p_counter < c_counter) {
-    console.log('You lost! Better luck next time!')
+function game(p_counter, c_counter, playerSelection) {
+  //console.log(`${p_counter}, ${c_counter}, ${playerSelection}`)
+  let computerSelection = computerPlay()
+  //console.log(playRound( playerSelection, computerSelection ))
+  let winner = playRound(playerSelection, computerSelection)
+  if (winner.includes('You win')) {
+    p_counter++
+    document.getElementById('result').innerHTML = `${winner}`
+    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
+  } else if (winner.includes('You lose')) {
+    c_counter++
+    document.getElementById('result').innerHTML = `${winner}`
+    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   } else {
     //draw
-    console.log('It was a draw!')
-  }
+    document.getElementById('result').innerHTML = `${winner}`
+    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
+  } 
 }
 
-
-function doSomething(e) {
-  //console.log(e)
+function doOnMouseover(e) {
   const button = e.srcElement
   button.classList.add('hover')
-  console.log(button)
-  //console.log(e.path[0].firstChild.data)
 }
 
-function undoSomething(e) {
+function doOnMouseout(e) {
   const button = e.srcElement
   button.classList.remove('hover')
 }
 
+let p_counter = 0
+let c_counter = 0
+
+function doOnClick(e) {
+  const button = e.srcElement
+  button.classList.add('clicked')
+  //console.log(e.path[0].firstChild.data)
+  game(p_counter, c_counter, e.path[0].firstChild.data.toLowerCase())
+}
+
 const buttons = document.querySelectorAll('button')
+
+buttons.forEach(button => button.addEventListener('mouseover', doOnMouseover))
+buttons.forEach(button => button.addEventListener('mouseout', doOnMouseout))
+buttons.forEach(button => button.addEventListener('click', doOnClick))
 console.log(buttons)
-buttons.forEach(button => button.addEventListener('mouseover', doSomething))
-buttons.forEach(button => button.addEventListener('mouseout', undoSomething))
-//game()
+
+//while (true) { game(p_counter, c_counter) }
+
