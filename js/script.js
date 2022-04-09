@@ -1,5 +1,9 @@
 'use strict'
 
+function capitalize(str) {
+  return str.slice(0,1).toUpperCase() + str.slice(1)
+}
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -12,7 +16,7 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    return `${playerSelection} all around! Draw!`
+    return `${capitalize(playerSelection)} all around! Draw!`
   } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
     return 'Rock smashes scissors! You win!'
   } else if (playerSelection === 'rock' && computerSelection === 'paper') {
@@ -32,7 +36,6 @@ function playRound(playerSelection, computerSelection) {
 function game(p_counter, c_counter, playerSelection) {
   //console.log(`${p_counter}, ${c_counter}, ${playerSelection}`)
   let computerSelection = computerPlay()
-  //console.log(playRound( playerSelection, computerSelection ))
   let winner = playRound(playerSelection, computerSelection)
   if (winner.includes('You win')) {
     p_counter++
@@ -75,6 +78,4 @@ buttons.forEach(button => button.addEventListener('mouseover', doOnMouseover))
 buttons.forEach(button => button.addEventListener('mouseout', doOnMouseout))
 buttons.forEach(button => button.addEventListener('click', doOnClick))
 console.log(buttons)
-
-//while (true) { game(p_counter, c_counter) }
 
