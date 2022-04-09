@@ -60,3 +60,12 @@ button {
     border-color: orange;
     box-shadow: 0 0 5px 5px orange;
 }
+
+#result, #tally, #winner {
+    display: flex;
+    flex: 1;
+    padding: 30px;
+    margin: 20px;
+    color: white;
+    font-size: 3rem;
+}
