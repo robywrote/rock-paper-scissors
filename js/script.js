@@ -10,40 +10,42 @@ function getRandomInt(max) {
 
 const possible = ["rock", "paper", "scissors"];
 
+let p_counter = 0
+let c_counter = 0
+
 function computerPlay() {
     return possible[getRandomInt(3)];
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection=computerPlay()) {
+  // this is kludgy, uses 1st char in return string as flag to be trimmed later
+  
   if (playerSelection === computerSelection) {
-    return `${capitalize(playerSelection)} all around! Draw!`
+    return `${capitalize(playerSelection)} all around!`
   } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-    return 'Rock smashes scissors! You win!'
+    return 'pRock smashes scissors!'
   } else if (playerSelection === 'rock' && computerSelection === 'paper') {
-    return 'Paper covers rock! You lose!'
+    return 'cPaper covers rock!'
   } else if (playerSelection === 'paper' && computerSelection === 'rock') {
-    return 'Paper covers rock! You win!'
+    return 'pPaper covers rock!'
   } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-    return 'Scissors cut paper! You lose!'
+    return 'cScissors cut paper!'
   } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-    return 'Scissors cut paper! You win!'
+    return 'pScissors cut paper!'
   } else {
     // player: scissors, computer: rock
-    return 'Rock smashes scissors! You lose!'
+    return 'cRock smashes scissors!'
   }
 }
 
-function game(p_counter, c_counter, playerSelection) {
-  //console.log(`${p_counter}, ${c_counter}, ${playerSelection}`)
-  let computerSelection = computerPlay()
-  let winner = playRound(playerSelection, computerSelection)
-  if (winner.includes('You win')) {
+function game(winner) {  
+  if (winner.startsWith('p')) {
     p_counter++
-    document.getElementById('result').innerHTML = `${winner}`
+    document.getElementById('result').innerHTML = `${winner.slice(1)}`
     //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
-  } else if (winner.includes('You lose')) {
+  } else if (winner.startsWith('c')) {
     c_counter++
-    document.getElementById('result').innerHTML = `${winner}`
+    document.getElementById('result').innerHTML = `${winner.slice(1)}`
     //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   } else {
     //draw
@@ -62,14 +64,23 @@ function doOnMouseout(e) {
   button.classList.remove('hover')
 }
 
-let p_counter = 0
-let c_counter = 0
+
 
 function doOnClick(e) {
   const button = e.srcElement
   button.classList.add('clicked')
   //console.log(e.path[0].firstChild.data)
-  game(p_counter, c_counter, e.path[0].firstChild.data.toLowerCase())
+  game(playRound(e.path[0].firstChild.data.toLowerCase()))
+  console.log(`player: ${p_counter} computer: ${c_counter}`)
+  if (p_counter === 5) {
+    document.getElementById('winner').innerHTML = `You win! \nGame Over`
+    p_counter = 0
+    c_counter = 0
+  } else if (c_counter === 5) {
+    document.getElementById('winner').innerHTML = `Computer wins :( \nGame Over`
+    p_counter = 0
+    c_counter = 0
+  }
 }
 
 const buttons = document.querySelectorAll('button')
