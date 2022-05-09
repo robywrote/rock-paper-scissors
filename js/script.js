@@ -19,6 +19,8 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection=computerPlay()) {
   // this is kludgy, uses 1st char in return string as flag to be trimmed later
+
+  document.getElementById('winner').innerHTML = ''
   
   if (playerSelection === computerSelection) {
     return `${capitalize(playerSelection)} all around!`
@@ -71,7 +73,7 @@ function doOnClick(e) {
   button.classList.add('clicked')
   //console.log(e.path[0].firstChild.data)
   game(playRound(e.path[0].firstChild.data.toLowerCase()))
-  console.log(`player: ${p_counter} computer: ${c_counter}`)
+  document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   if (p_counter === 5) {
     document.getElementById('winner').innerHTML = `You win! \nGame Over`
     p_counter = 0
