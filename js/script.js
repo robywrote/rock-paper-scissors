@@ -44,15 +44,12 @@ function game(winner) {
   if (winner.startsWith('p')) {
     p_counter++
     document.getElementById('result').innerHTML = `${winner.slice(1)}`
-    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   } else if (winner.startsWith('c')) {
     c_counter++
     document.getElementById('result').innerHTML = `${winner.slice(1)}`
-    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   } else {
     //draw
     document.getElementById('result').innerHTML = `${winner}`
-    //document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   } 
 }
 
@@ -71,7 +68,6 @@ function doOnMouseout(e) {
 function doOnClick(e) {
   const button = e.srcElement
   button.classList.add('clicked')
-  //console.log(e.path[0].firstChild.data)
   game(playRound(e.path[0].firstChild.data.toLowerCase()))
   document.getElementById('tally').innerHTML = `Player: ${p_counter} Computer: ${c_counter}`
   if (p_counter === 5) {
@@ -83,6 +79,7 @@ function doOnClick(e) {
     p_counter = 0
     c_counter = 0
   }
+  setTimeout(() => {  button.classList.remove('clicked') }, 400)
 }
 
 const buttons = document.querySelectorAll('button')
